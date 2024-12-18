@@ -41,7 +41,7 @@ export function Tabs({
       <div
         ref={tabsRef}
         role="tablist"
-        className={cn("inline-flex items-center gap-4", className)}
+        className={cn("inline-flex items-center gap-5", className)}
         {...props}
       >
         {children}
