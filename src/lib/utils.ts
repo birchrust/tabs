@@ -25,7 +25,7 @@ export const getNextBatchItem = (
   batches: NodeList,
   loop = false,
 ): HTMLElement => {
-  const activeItem = getActiveBatchItem(batches) as HTMLElement | null;
+  const activeItem = getActiveBatchItem(batches);
 
   const nextItem = activeItem?.nextElementSibling;
 
@@ -44,7 +44,7 @@ export const getPrevBatchItem = (
   batches: NodeList,
   loop = false,
 ): HTMLElement => {
-  const activeItem = getActiveBatchItem(batches) as HTMLElement | null;
+  const activeItem = getActiveBatchItem(batches);
 
   const prevItem = activeItem?.previousElementSibling;
 
