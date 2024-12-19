@@ -22,6 +22,7 @@ export function Tabs({
   const nextTab = () => {
     if (!tabsRef.current) return;
     const batches = getAllBatchElements(tabsRef?.current);
+    
     const nextItem = getNextBatchItem(batches);
 
     nextItem.focus();

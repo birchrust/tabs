@@ -8,6 +8,7 @@ interface TabProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
   tabDisabled?: boolean;
   notifications: string;
+  notificationsTotal?:string
 }
 
 export type { TabsProps, TabProps };

@@ -11,6 +11,7 @@ const initialStates = [
     label: "Tab",
     value: "tab_2",
     notifications: "true",
+    notificationsTotal: "200",
     tabDisabled: "false",
   },
   {

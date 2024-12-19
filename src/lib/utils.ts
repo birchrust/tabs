@@ -6,14 +6,17 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getAllBatchElements = (rootElement: HTMLElement): NodeList => {
-  return rootElement.querySelectorAll("[data-batch-element]");
+  return rootElement.querySelectorAll("[data-batch-element]:not([disabled])");
 };
 
 export const getActiveBatchItem = (batches: NodeList) => {
   let activeItem = null;
 
   batches.forEach((item) => {
-    if ((item as HTMLElement).hasAttribute("data-focus-element")) {
+    if (
+      (item as HTMLElement).hasAttribute("data-focus-element") &&
+      !(item as HTMLElement).hasAttribute("disabled")
+    ) {
       activeItem = item;
     }
   });
@@ -27,7 +30,11 @@ export const getNextBatchItem = (
 ): HTMLElement => {
   const activeItem = getActiveBatchItem(batches);
 
-  const nextItem = activeItem?.nextElementSibling;
+  let nextItem = activeItem?.nextElementSibling;
+
+  while (nextItem && (nextItem as HTMLElement).hasAttribute("disabled")) {
+    nextItem = nextItem?.nextElementSibling;
+  }
 
   if (nextItem) {
     return nextItem as HTMLElement;
@@ -46,7 +53,11 @@ export const getPrevBatchItem = (
 ): HTMLElement => {
   const activeItem = getActiveBatchItem(batches);
 
-  const prevItem = activeItem?.previousElementSibling;
+  let prevItem = activeItem?.previousElementSibling;
+
+  while (prevItem && (prevItem as HTMLElement).hasAttribute("disabled")) {
+    prevItem = prevItem?.previousElementSibling;
+  }
 
   if (prevItem) {
     return prevItem as HTMLElement;

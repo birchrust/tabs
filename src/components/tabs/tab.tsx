@@ -9,12 +9,13 @@ import { cn } from "~/lib/utils";
 
 import type { TabProps } from "~/components/tabs/types";
 
-export  function Tab({
+export function Tab({
   value,
   children,
   className,
   tabDisabled,
   notifications,
+  notificationsTotal,
   ...props
 }: TabProps) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -64,30 +65,44 @@ export  function Tab({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative flex h-[32px] gap-2.5 pb-2 text-[#909090] outline-none transition-colors",
+        "relative flex gap-1 text-[#909090] outline-none transition-colors group",
         !tabDisabled && "hover:text-[#3B3B3B]",
-        isSelected && "border-b-[2px] border-[#0A0D14] text-[#0A0D14]",
-        tabDisabled && "pointer-events-auto border-[#D2D1D0] text-[#D2D1D0]",
+        isSelected && " text-[#0A0D14]",
+        tabDisabled && "cursor-not-allowed border-[#D2D1D0] text-[#D2D1D0]",
         "focus-visible:rounded-[3px] focus-visible:shadow-[0_0_0_2px_#FFFFFF,_0_0_0_4px_#E3E5EC]",
       )}
       onFocus={() => handleFocus()}
       onBlur={handleBlur}
+      disabled={tabDisabled}
       {...(isFocused ? { "data-focus-element": "" } : {})}
       {...props}
       data-batch-element
-      disabled={false} // Not enabled
     >
-      <span
-        className={cn(
-          "relative h-[24px] w-[25px] text-left text-[17px] font-normal leading-[24px] outline-none transition-colors",
-          className,
-        )}
+      <div
+        className={cn("h-[32px] gap-2.5 pb-2", isSelected && "border-b-[2px] border-[#0A0D14]")}
       >
-        {children}
-      </span>
-      {notifications === "true" ? (
-        <div className="absolute -right-[6px] top-[2px] h-[6px] w-[6px] rounded-full bg-[#ED2B2B]" />
-      ) : null}
+        <span
+          className={cn(
+            "relative h-[24px] w-[25px] text-left text-[17px] font-normal leading-[24px] outline-none transition-colors",
+            className,
+          )}
+        >
+          {children}
+        </span>
+      </div>
+      <div>
+        {notifications === "true" ? (
+          <div className="flex items-start">
+            {notificationsTotal ? (
+              <span className="text-[10px] font-normal">
+                {notificationsTotal}
+              </span>
+            ) : (
+              <div className="h-[6px] w-[6px] rounded-full bg-[#ED2B2B]" />
+            )}
+          </div>
+        ) : null}
+      </div>
     </button>
   );
 }
