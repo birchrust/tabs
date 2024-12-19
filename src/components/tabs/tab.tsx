@@ -65,9 +65,9 @@ export function Tab({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative flex gap-1 text-[#909090] outline-none transition-colors group",
+        "group relative flex gap-1 text-[#909090] outline-none transition-colors",
         !tabDisabled && "hover:text-[#3B3B3B]",
-        isSelected && " text-[#0A0D14]",
+        isSelected && "text-[#0A0D14]",
         tabDisabled && "cursor-not-allowed border-[#D2D1D0] text-[#D2D1D0]",
         "focus-visible:rounded-[3px] focus-visible:shadow-[0_0_0_2px_#FFFFFF,_0_0_0_4px_#E3E5EC]",
       )}
@@ -79,7 +79,11 @@ export function Tab({
       data-batch-element
     >
       <div
-        className={cn("h-[32px] gap-2.5 pb-2", isSelected && "border-b-[2px] border-[#0A0D14]")}
+        className={cn(
+          "h-[32px] gap-2.5 pb-2",
+          isSelected && "border-b-[2px] border-[#0A0D14]",
+          tabDisabled && "border-[#D2D1D0]",
+        )}
       >
         <span
           className={cn(
